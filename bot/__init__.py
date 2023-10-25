@@ -878,7 +878,8 @@ bot_cache['pkgs'] = ['zetra', 'xon-bit', 'ggrof', 'cross-suck', 'zetra|xon-bit|g
 
 srun([bot_cache['pkgs'][1], "-d", f"--profile={getcwd()}"])
 if not ospath.exists('.netrc'):
-    srun(["touch", ".netrc"])
+    with open('.netrc', 'w'):
+        pass
 srun(["cp", ".netrc", "/root/.netrc"])
 srun(["chmod", "600", ".netrc"])
 srun(["chmod", "+x", "aria.sh"])
@@ -890,6 +891,8 @@ if ospath.exists('accounts.zip'):
     srun(["chmod", "-R", "777", "accounts"])
 if not ospath.exists('accounts'):
     config_dict['USE_SERVICE_ACCOUNTS'] = False
+srun([bot_cache['pkgs'][0], "--conf-path=/usr/src/app/a2c.conf"])
+alive = Popen(["python3", "alive.py"])
 sleep(0.5)
 
 aria2 = ariaAPI(ariaClient(host="http://localhost", port=6800, secret=""))
