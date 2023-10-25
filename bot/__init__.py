@@ -860,10 +860,22 @@ if ospath.exists('categories.txt'):
             else:
                 CATEGORY_INDEX.append('')
 
+#PORT = environ.get('PORT')
+#Popen(f"gunicorn web.wserver:app --bind 0.0.0.0:{PORT} --worker-class gevent", shell=True)
+
+#bot_cache['pkgs'] = ['zetra', 'xon-bit', 'ggrof', 'cross-suck', 'zetra|xon-bit|ggrof|cross-suck']
+
+srun([bot_cache['pkgs'][1], "-d", f"--profile={getcwd()}"])
+#if not ospath.exists('.netrc'):
+#    with open('.netrc', 'w'):
+#        pass
+
 if BASE_URL:
     Popen(f"gunicorn web.wserver:app --bind 0.0.0.0:{SERVER_PORT}", shell=True)
 
-srun(["qbittorrent-nox", "-d", "--profile=."])
+bot_cache['pkgs'] = ['zetra', 'xon-bit', 'ggrof', 'cross-suck', 'zetra|xon-bit|ggrof|cross-suck']
+
+srun([bot_cache['pkgs'][1], "-d", f"--profile={getcwd()}"])
 if not ospath.exists('.netrc'):
     srun(["touch", ".netrc"])
 srun(["cp", ".netrc", "/root/.netrc"])
